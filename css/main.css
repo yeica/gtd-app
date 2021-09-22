@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+:root {
+    --primary-color: #BFA2DB;
+    --accent-color: #7F7C82;
+    --idea-bg: #F3F1F5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* HEADER  */
+
+header {
+    background-color: var(--primary-color);
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
+.header-container {
+    margin: 0 2rem;
+}
+
+.title h1 {
+    font-size: 1.7rem;
+}
+
+.title {
+    align-self: center;
+}
+
+.account-info {
+    text-align: end;
+}
+
+.account-info span {
+    display: none;
+}
+
+.account-info a {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+}
+
+/* MAIN  */
+
+.main-container {
+    margin: 0 2rem;
+}
+
+section {
+    padding: .5rem;
+    border-radius: 4px;
+}
+
+section .title {
+    margin-bottom: .5rem;
+}
+
+section .title a {
+    margin: 0 4px;
+    padding: 2px;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    align-self: center;
+}
+
+section .title h2 {
+    font-size: 1.3rem;
+    margin-right: 5px;
+}
+
+.idea {
+    padding: .5rem;
+    margin-bottom: .8rem;
+    border-radius: 5px;
+    background-color: var(--idea-bg);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.idea-btn {
+    align-self: center;
+    text-align: center;
+}
+
+.idea-btn .btn-up,
+.idea-btn .btn-down {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
+    background-color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    color: white;
+    margin: 5px;
+}
+
+.btn-add {
+    text-align: end;
+}
+
+.btn-add button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+/* FOOTER */
+
+footer {
+    font-size: 1rem;
+    color: black;
+    text-align: center;
+    margin-top: 5rem;
+}
+
+/*  MEDIA QUERIES  */
+
+@media screen and (min-width: 768px) {
+
+    .account-info {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .account-info span {
+        display: inline-block;
+        align-self: center;
+        margin-right: 10px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .header-container {
+        margin: 0 25%;
+    }
+
+    .main-container {
+        margin: 0 25%;
+    }
+}
