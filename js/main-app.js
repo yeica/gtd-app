@@ -7,6 +7,10 @@ var mainApp = new Vue({
       canBeDoneTwoMin: true,
       sendActionable: '',
       sendNonActionable: '',
+      titles: {
+        title: '',
+        description: ''
+      },
       profile: {
         name: '',
         avatar: '',
@@ -142,9 +146,53 @@ var mainApp = new Vue({
         }
 
       },
-      openModal: function (modalName) {
-        console.log('hete')
+      openModal: function (modalName, list) {
         let targetModal = document.getElementById(modalName);
+
+        if (modalName == 'gtdInfoModal') {
+          switch (list) {
+            case 'doQuickList':
+              this.titles = {
+                title: 'About doing things quickly',
+                description: 'something',
+              }
+              break;
+            case 'doLaterList':
+              this.titles = {
+                title: 'About deferring tasks',
+                description: 'something',
+              }
+              break;
+            case 'waitingList':
+              this.titles = {
+                title: 'About delegating tasks',
+                description: 'something',
+              }
+              break;
+            case 'someDayList':
+              this.titles = {
+                title: 'About incubating ideas',
+                description: 'something',
+              }
+              break;
+            case 'referencesList':
+              this.titles = {
+                title: 'About saving ideas as references',
+                description: 'something',
+              }
+              break;
+            case 'trashList':
+              this.titles = {
+                title: 'About trash ideas',
+                description: 'something',
+              }
+              break;
+          
+            default:
+              break;
+          }
+        }
+        
         targetModal.style.display = "block";
   
       },

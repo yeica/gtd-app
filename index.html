@@ -21,7 +21,7 @@
                 </div>
                 <div class="col account-info">
                     <span>Yeyskalyn Cordero Herrera</span>
-                    <button v-on:click="openModal('changeProfileInfoModal')">
+                    <button v-on:click="openModal('updateProfileInfoModal')">
                         <img src="assets/avatars/(13).svg" alt="">
                     </button>
                 </div>
@@ -32,7 +32,7 @@
                 <section>
                     <div class="row title">
                         <h2>Do it ASAP!</h2>
-                        <button>i</button>
+                        <button v-on:click="openModal('gtdInfoModal', 'doQuickList')">i</button>
                     </div>
                     <div v-for="(idea, index) in doQuickList" class="row idea">
                         <div class="col-6 idea-title">
@@ -46,11 +46,11 @@
                         </div>
                     </div>
                 </section>
-    
+
                 <section>
                     <div class="row title">
                         <h2>To do later</h2>
-                        <button>i</button>
+                        <button v-on:click="openModal('gtdInfoModal', 'doLaterList')">i</button>
                     </div>
                     <div v-for="(idea, index) in doLaterList" class="row idea">
                         <div class="col-6 idea-title">
@@ -64,11 +64,11 @@
                         </div>
                     </div>
                 </section>
-    
+
                 <section>
                     <div class="row title">
                         <h2>Waiting for someone</h2>
-                        <button>i</button>
+                        <button v-on:click="openModal('gtdInfoModal', 'waitingList')">i</button>
                     </div>
                     <div v-for="(idea, index) in waitingList" class="row idea">
                         <div class="col-6 idea-title">
@@ -82,11 +82,11 @@
                         </div>
                     </div>
                 </section>
-    
+
                 <section>
                     <div class="row title">
                         <h2>To do some day</h2>
-                        <button>i</button>
+                        <button v-on:click="openModal('gtdInfoModal', 'someDayList')">i</button>
                     </div>
                     <div v-for="(idea, index) in someDayList" class="row idea">
                         <div class="col-6 idea-title">
@@ -100,11 +100,11 @@
                         </div>
                     </div>
                 </section>
-    
+
                 <section>
                     <div class="row title">
                         <h2>References</h2>
-                        <button>i</button>
+                        <button v-on:click="openModal('gtdInfoModal', 'referencesList')">i</button>
                     </div>
                     <div v-for="(idea, index) in referencesList" class="row idea">
                         <div class="col-6 idea-title">
@@ -118,11 +118,11 @@
                         </div>
                     </div>
                 </section>
-    
+
                 <section>
                     <div class="row title">
                         <h2>Trash</h2>
-                        <button>i</button>
+                        <button v-on:click="openModal('gtdInfoModal', 'trashList')">i</button>
                     </div>
                     <div v-for="(idea, index) in trashList" class="row idea">
                         <div class="col-6 idea-title">
@@ -136,30 +136,50 @@
                         </div>
                     </div>
                 </section>
-    
-                <!-- Modal: Change Profile Info -->
-                <div id="changeProfileInfoModal" class="modal">
+
+                <!-- Modal: Info About GTD Method -->
+                <div id="gtdInfoModal" class="modal">
+                    <div class="modal-content">
+                        <div class="row modal-header">
+                            <div class="col-6">
+                                <h3>{{titles.title}}</h3>
+                            </div>
+                            <div class="col">
+                                <button v-on:click="closeModal('gtdInfoModal')">&times;</button>
+                            </div>
+                        </div>
+                        <div class="modal-main">
+                            <p>{{titles.description}}</p>
+                        </div>
+                        <div class="row modal-footer">
+                            <button v-on:click="closeModal('gtdInfoModal')">Ok</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal: Update Profile Info -->
+                <div id="updateProfileInfoModal" class="modal">
                     <div class="modal-content">
                         <div class="row modal-header">
                             <div class="col-6">
                                 <h3>Change profile info</h3>
                             </div>
                             <div class="col">
-                                <button v-on:click="closeModal('changeProfileInfoModal')">&times;</button>
+                                <button v-on:click="closeModal('updateProfileInfoModal')">&times;</button>
                             </div>
                         </div>
                         <div class="modal-main">
                             <div class="row">
-                                                                                    <!-- TEXT FIELD -->
-                            <div class="input-field">
-                                <label>Name</label>
-                                <input v-model.trim="profile.name" type="text">
-                            </div>
-                                                                                    <!-- COLOR FIELD -->
-                            <div class="input-field">
-                                <label>Color</label>
-                                <input v-model.trim="profile.color" type="color">
-                            </div>
+                                <!-- TEXT FIELD -->
+                                <div class="input-field">
+                                    <label>Name</label>
+                                    <input v-model.trim="profile.name" type="text">
+                                </div>
+                                <!-- COLOR FIELD -->
+                                <div class="input-field">
+                                    <label>Color</label>
+                                    <input v-model.trim="profile.color" type="color">
+                                </div>
                             </div>
 
                             <!-- AVATARS -->
@@ -178,17 +198,17 @@
                             </details>
                         </div>
                         <div class="row modal-footer">
-                            <button v-on:click="closeModal('changeProfileInfoModal')">Cancel</button>
+                            <button v-on:click="closeModal('updateProfileInfoModal')">Cancel</button>
                             <button v-on:click='updateProfile()'>Save changes</button>
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- ADD IDEA BTN -->
                 <div class="btn-add">
                     <button v-on:click="openModal('addIdeaModal')">+</button>
                 </div>
-    
+
                 <!-- Modal: Add idea -->
                 <div id="addIdeaModal" class="modal">
                     <div class="modal-content">
@@ -206,21 +226,21 @@
                                 <label>Title</label>
                                 <input v-model.trim="title" type="text">
                             </div>
-    
+
                             <div class="input-field">
                                 <label>Description</label>
                                 <textarea v-model.trim="description" name="" cols="50" rows="5"></textarea>
                             </div>
-    
+
                             <!-- RADIO BUTTONS FIELDS -->
                             <div class="input-field radio-field">
                                 <p>Is it actionable?</p>
-                                <label><input v-model="isActionable" v-bind:value="true" type="radio" name="isActionable"
-                                        id="isActionable">Yes</label>
-                                <label><input v-model="isActionable" v-bind:value="false" type="radio" name="isActionable"
-                                        id="isActionable">No</label>
+                                <label><input v-model="isActionable" v-bind:value="true" type="radio"
+                                        name="isActionable" id="isActionable">Yes</label>
+                                <label><input v-model="isActionable" v-bind:value="false" type="radio"
+                                        name="isActionable" id="isActionable">No</label>
                             </div>
-    
+
                             <div class="input-field radio-field" v-if="isActionable === true">
                                 <p>Can it be done in two minutes?</p>
                                 <label><input v-model="canBeDoneTwoMin" v-bind:value="true" type="radio"
@@ -228,7 +248,7 @@
                                 <label><input v-model="canBeDoneTwoMin" v-bind:value="false" type="radio"
                                         name="canBeDoneTwoMinutes" id="canBeDoneTwoMinutes">No</label>
                             </div>
-    
+
                             <div class="input-field radio-field" v-else>
                                 <p>Send to:</p>
                                 <label><input v-model="sendNonActionable" value="trash" type="radio"
@@ -238,11 +258,12 @@
                                 <label><input v-model="sendNonActionable" value="someDay" type="radio"
                                         name="sendNonActionable" id="sendNonActionable">Some Day</label>
                             </div>
-    
-                            <div class="input-field radio-field" v-if="canBeDoneTwoMin === false && isActionable === true">
+
+                            <div class="input-field radio-field"
+                                v-if="canBeDoneTwoMin === false && isActionable === true">
                                 <p>Send to:</p>
-                                <label><input v-model="sendActionable" value="waiting" type="radio" name="sendActionable"
-                                        id="sendActionable">Waiting for Someone</label>
+                                <label><input v-model="sendActionable" value="waiting" type="radio"
+                                        name="sendActionable" id="sendActionable">Waiting for Someone</label>
                                 <label><input v-model="sendActionable" value="toDo" type="radio" name="sendActionable"
                                         id="sendActionable">To do</label>
                             </div>
@@ -253,7 +274,7 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
         </main>
         <footer>
