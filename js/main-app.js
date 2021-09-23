@@ -11,10 +11,15 @@ var mainApp = new Vue({
         title: '',
         description: ''
       },
+      savedProfile: {
+        name: 'Anonymous',
+        avatar: '(1)',
+        color: '#ffffff'
+      },
       profile: {
         name: '',
         avatar: '',
-        color: "#ffffff"
+        color: '#ffffff'
       },
       doQuickList: [
         /*{
@@ -211,15 +216,15 @@ var mainApp = new Vue({
         targetModal.style.display = "none";
       },
       setAvatar: function (index){
-        this.profile.avatar= 'assets/avatars/' + index + '.svg';
-        console.log(this.profile.avatar);
+        this.profile.avatar= '(' + index +')'
       },
       updateProfile: function () {
-        localStorage.setItem('profile', JSON.stringify(this.profile));
+        this.savedProfile = this.profile;
+        this.changePrimaryColor();
+        localStorage.setItem('profile', JSON.stringify(this.savedProfile));
         this.closeModal('updateProfileInfoModal');
       },
       updateLocalStorage: function (){
-        //localStorage.setItem('gtdData', JSON.stringify(this.localStorageData));
         console.log(this.localStorageData)
       },
       getLocalStorage: function () {
@@ -229,14 +234,28 @@ var mainApp = new Vue({
         let someDay = JSON.parse(localStorage.getItem('someDayList'));
         let references = JSON.parse(localStorage.getItem('referencesList'));
         let trash = JSON.parse(localStorage.getItem('trashList'));
+        let profile = JSON.parse(localStorage.getItem('profile'));
 
-        
         doQuick == null ? this.doQuickList = [] : this.doQuickList = doQuick;
         doLater == null ? this.doLaterList = [] : this.doLaterList = doLater;
         waiting == null ? this.waitingList = [] : this.waitingList = waiting;
         someDay == null ? this.someDayList = [] : this.someDayList = someDay;
         references == null ? this.referencesList = [] : this.referencesList = references;
         trash == null ? this.trashList = [] : this.trashList = trash;
+
+        if (profile == null){
+          this.createProfile()
+        }
+        else{
+          this.savedProfile = profile;
+          this.changePrimaryColor();
+        }
+      },
+      createProfile: function () {
+        localStorage.setItem('profile', JSON.stringify(this.savedProfile));
+      },
+      changePrimaryColor: function () {
+        document.documentElement.style.setProperty('--primary-color', this.savedProfile.color);
       }
     },
     created: function () {

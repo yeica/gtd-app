@@ -20,9 +20,9 @@
                     <h1>Get Your Things Done!</h1>
                 </div>
                 <div class="col account-info">
-                    <span>Yeyskalyn Cordero Herrera</span>
+                    <span>Hello, {{savedProfile.name}}</span>
                     <button v-on:click="openModal('updateProfileInfoModal')">
-                        <img src="assets/avatars/(13).svg" alt="">
+                        <img v-bind:src="'assets/avatars/' + savedProfile.avatar + '.svg'">
                     </button>
                 </div>
             </div>
