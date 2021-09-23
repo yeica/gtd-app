@@ -143,6 +143,7 @@ var mainApp = new Vue({
 
       },
       openModal: function (modalName) {
+        console.log('hete')
         let targetModal = document.getElementById(modalName);
         targetModal.style.display = "block";
   
@@ -150,6 +151,13 @@ var mainApp = new Vue({
       closeModal: function (modalName) {
         let targetModal = document.getElementById(modalName);
         targetModal.style.display = "none";
+      },
+      setAvatar: function (index){
+        this.profile.avatar= 'assets/avatars/' + index + '.svg';
+        console.log(this.profile.avatar);
+      },
+      updateProfile: function () {
+        console.log(this.profile);
       }
     }
   })

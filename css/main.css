@@ -133,6 +133,10 @@ section .title h2 {
     cursor: pointer;
 }
 
+button {
+    cursor: pointer;
+}
+
 /* FOOTER */
 
 footer {

@@ -27,28 +27,24 @@
       text-align: end;
   }
 
-  .modal-header button {
-    background-color: unset;
-    border: none;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
   .input-field {
       margin-bottom: 1rem;
+      width: 100%;
   }
     
-  label ~ input[type=text], label ~ textarea{
+  label ~ input[type=text], label ~ textarea, label ~ input[type=color]{
       display: block;
   }
 
-  .input-field label {
+  .input-field label, details span {
       font-size: 1.1rem;
   }
 
   input[type=text], textarea {
-      box-sizing: border-box;
-      width: 100%;
+      
+      
+    box-sizing: border-box;
+    width: 100%;
     padding: .5rem;
     font-size: .9rem;
   }
@@ -92,7 +88,7 @@
   }
   
   /* The Close Button */
-  #btnCloseModal {
+  .modal-header button {
       background-color: unset;
       border: none;
     color: #aaaaaa;
@@ -100,9 +96,16 @@
     font-weight: bold;
   }
   
-  #btnCloseModal:hover,
-  #btnCloseModal:focus {
+  .modal-header button:hover,
+  .modal-header button:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  .profile-avatars img {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-bottom: 5px;
   }
