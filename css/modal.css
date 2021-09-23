@@ -1,0 +1,102 @@
+:root {
+    --primary-color: #BFA2DB;
+    --accent-color: #7F7C82;
+    --idea-bg: #F3F1F5;
+}
+
+/* FROM https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal */
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    /*padding-top: 100px;  Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 1rem auto 1rem;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .modal-header > div:last-child {
+      text-align: end;
+  }
+
+  .input-field {
+      margin-bottom: 1rem;
+  }
+    
+  label ~ input[type=text], label ~ textarea{
+      display: block;
+  }
+
+  .input-field label {
+      font-size: 1.2rem;
+  }
+
+  input[type=text], textarea {
+      box-sizing: border-box;
+      width: 100%;
+    padding: .5rem;
+  }
+
+  textarea {
+      resize: none;
+  }
+
+  .radio-field > p {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .radio-field > label::after {
+      content: '';
+      display: block;
+      margin-bottom: 5px;
+  }
+
+  .modal-footer {
+      justify-content: flex-end;
+  }
+
+  .modal-footer button {
+      background-color: var(--primary-color);
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+  }
+  
+  .modal-footer > button:first-child {
+    margin-right: 10px;
+    background-color: var(--accent-color);
+    color: white;
+  }
+  
+  /* The Close Button */
+  #btnCloseModal {
+      background-color: unset;
+      border: none;
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  #btnCloseModal:hover,
+  #btnCloseModal:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
