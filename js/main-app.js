@@ -1,36 +1,37 @@
 var mainApp = new Vue({
     el: '#mainApp',
     data: {
-      ideasList: [
-        {
-          title: 'Hornear Pan',
-          description: 'Con mi novio',
-          belongsTo: 'd'
-        },
-        {
-          title: 'Hacer la tarea',
-          description: 'Con mi novio',
-          belongsTo: ''
-        },
-        {
-          title: 'Comer yaroa',
-          description: 'Con mi novio',
-          belongsTo: ''
-        }
-      ],
-      doQuickList: [],
-      doLaterList: [],
-      waitingList: [],
-      someDayList: [],
-      referencesList: [],
-      trashList: [],
       title: '',
       description: '',
       isActionable: true,
       canBeDoneTwoMin: true,
       sendActionable: '',
       sendNonActionable: '',
-      belongsTo: '',
+      profile: {
+        name: '',
+        avatar: '',
+        color: ''
+      },
+      doQuickList: 
+      [
+        {
+          title: 'Hornear Pan',
+          description: 'Con mi novio'
+        },
+        {
+          title: 'Hacer la tarea',
+          description: 'Con mi novio'
+        },
+        {
+          title: 'Comer yaroa',
+          description: 'Con mi novio'
+        }
+      ],
+      doLaterList: [],
+      waitingList: [],
+      someDayList: [],
+      referencesList: [],
+      trashList: [],
     },
     methods: {
       addIdea: function () {
@@ -66,6 +67,7 @@ var mainApp = new Vue({
               break;
           }
         }
+        this.closeModal('addIdeaModal');
       },
       moveIdea: function (whereToMove, arrayToUpdate, actualIndex, idea) {
         switch (arrayToUpdate) {
@@ -138,6 +140,16 @@ var mainApp = new Vue({
           default:
             break;
         }
+
+      },
+      openModal: function (modalName) {
+        let targetModal = document.getElementById(modalName);
+        targetModal.style.display = "block";
+  
+      },
+      closeModal: function (modalName) {
+        let targetModal = document.getElementById(modalName);
+        targetModal.style.display = "none";
       }
     }
   })

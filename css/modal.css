@@ -1,11 +1,4 @@
-:root {
-    --primary-color: #BFA2DB;
-    --accent-color: #7F7C82;
-    --idea-bg: #F3F1F5;
-}
-
 /* FROM https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal */
-
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -34,6 +27,13 @@
       text-align: end;
   }
 
+  .modal-header button {
+    background-color: unset;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
   .input-field {
       margin-bottom: 1rem;
   }
@@ -43,17 +43,23 @@
   }
 
   .input-field label {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
   }
 
   input[type=text], textarea {
       box-sizing: border-box;
       width: 100%;
     padding: .5rem;
+    font-size: .9rem;
   }
 
   textarea {
-      resize: none;
+    font-family: inherit;
+    resize: none;
+  }
+
+  input[type=radio] {
+    margin: 0 15px 5px 0;
   }
 
   .radio-field > p {

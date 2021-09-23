@@ -44,13 +44,18 @@ header {
     display: none;
 }
 
-.account-info a {
+.account-info button {
+    background-color: unset;
+    border: unset;
+}
+
+.account-info button img {
     display: inline-block;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: var(--accent-color);
 }
+
 
 /* MAIN  */
 
@@ -67,17 +72,17 @@ section .title {
     margin-bottom: .5rem;
 }
 
-section .title a {
+section .title button {
     margin: 0 4px;
     padding: 2px;
     background-color: var(--primary-color);
+    border: none;
     color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
+    /*text-align: center;*/
+    font-size: 14px;
     font-weight: bold;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     align-self: center;
 }
@@ -134,7 +139,7 @@ footer {
     font-size: 1rem;
     color: black;
     text-align: center;
-    margin-top: 5rem;
+    margin: 2.5rem 0;
 }
 
 /*  MEDIA QUERIES  */

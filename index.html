@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/modal.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
+
 <body>
     <header>
         <div class="row header-container">
@@ -19,7 +20,9 @@
             </div>
             <div class="col account-info">
                 <span>Yeyskalyn Cordero Herrera</span>
-                <a href=""></a>
+                <button v-on:click="openProfileModal">
+                    <img src="assets/avatars/001-power.svg" alt="">
+                </button>
             </div>
         </div>
     </header>
@@ -27,32 +30,18 @@
         <div class="main-container" id="mainApp">
             <section>
                 <div class="row title">
-                    <h2>Ideas</h2>
-                    <a href="">i</a>
-                </div>
-                <div v-for="(idea, index) in ideasList" class="row idea">
-                    <div class="col-6 idea-title">
-                        <p>{{idea.title}}</p>
-                    </div>
-                    <div class="col idea-btn">
-                        <button v-if="index != 0" v-on:click="moveIdea('up', index, idea)" class="btn-up">▲</button>
-                        <button v-if="index != ideasList.length - 1" v-on:click="moveIdea('down',index, idea)" class="btn-down">▼</button>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <div class="row title">
                     <h2>Do it ASAP!</h2>
-                    <a href="">i</a>
+                    <button>i</button>
                 </div>
                 <div v-for="(idea, index) in doQuickList" class="row idea">
                     <div class="col-6 idea-title">
                         <p>{{idea.title}}</p>
                     </div>
                     <div class="col idea-btn">
-                        <button v-if="index != 0" v-on:click="moveIdea('up', 'doQuickList',index, idea)" class="btn-up">▲</button>
-                        <button v-if="index != doQuickList.length - 1" v-on:click="moveIdea('down', 'doQuickList', index, idea)" class="btn-down">▼</button>
+                        <button v-if="index != 0" v-on:click="moveIdea('up', 'doQuickList',index, idea)"
+                            class="btn-up">▲</button>
+                        <button v-if="index != doQuickList.length - 1"
+                            v-on:click="moveIdea('down', 'doQuickList', index, idea)" class="btn-down">▼</button>
                     </div>
                 </div>
             </section>
@@ -60,47 +49,53 @@
             <section>
                 <div class="row title">
                     <h2>To do later</h2>
-                    <a href="">i</a>
+                    <button>i</button>
                 </div>
                 <div v-for="(idea, index) in doLaterList" class="row idea">
                     <div class="col-6 idea-title">
                         <p>{{idea.title}}</p>
                     </div>
                     <div class="col idea-btn">
-                        <button v-if="index != 0" v-on:click="moveIdea('up','doLaterList', index, idea)" class="btn-up">▲</button>
-                        <button v-if="index != doLaterList.length - 1" v-on:click="moveIdea('down','doLaterList',index, idea)" class="btn-down">▼</button>
+                        <button v-if="index != 0" v-on:click="moveIdea('up','doLaterList', index, idea)"
+                            class="btn-up">▲</button>
+                        <button v-if="index != doLaterList.length - 1"
+                            v-on:click="moveIdea('down','doLaterList',index, idea)" class="btn-down">▼</button>
                     </div>
                 </div>
             </section>
 
             <section>
                 <div class="row title">
-                    <h2>Waiting for</h2>
-                    <a href="">i</a>
+                    <h2>Waiting for someone</h2>
+                    <button>i</button>
                 </div>
                 <div v-for="(idea, index) in waitingList" class="row idea">
                     <div class="col-6 idea-title">
                         <p>{{idea.title}}</p>
                     </div>
                     <div class="col idea-btn">
-                        <button v-if="index != 0" v-on:click="moveIdea('up', 'waitingList',index, idea)" class="btn-up">▲</button>
-                        <button v-if="index != waitingList.length - 1" v-on:click="moveIdea('down','waitingList',index, idea)" class="btn-down">▼</button>
+                        <button v-if="index != 0" v-on:click="moveIdea('up', 'waitingList',index, idea)"
+                            class="btn-up">▲</button>
+                        <button v-if="index != waitingList.length - 1"
+                            v-on:click="moveIdea('down','waitingList',index, idea)" class="btn-down">▼</button>
                     </div>
                 </div>
             </section>
 
             <section>
                 <div class="row title">
-                    <h2>Some day</h2>
-                    <a href="">i</a>
+                    <h2>To do some day</h2>
+                    <button>i</button>
                 </div>
                 <div v-for="(idea, index) in someDayList" class="row idea">
                     <div class="col-6 idea-title">
                         <p>{{idea.title}}</p>
                     </div>
                     <div class="col idea-btn">
-                        <button v-if="index != 0" v-on:click="moveIdea('up', 'someDayList',index, idea)" class="btn-up">▲</button>
-                        <button v-if="index != someDayList.length - 1" v-on:click="moveIdea('down', 'someDayList', index, idea)" class="btn-down">▼</button>
+                        <button v-if="index != 0" v-on:click="moveIdea('up', 'someDayList',index, idea)"
+                            class="btn-up">▲</button>
+                        <button v-if="index != someDayList.length - 1"
+                            v-on:click="moveIdea('down', 'someDayList', index, idea)" class="btn-down">▼</button>
                     </div>
                 </div>
             </section>
@@ -108,15 +103,17 @@
             <section>
                 <div class="row title">
                     <h2>References</h2>
-                    <a href="">i</a>
+                    <button>i</button>
                 </div>
                 <div v-for="(idea, index) in referencesList" class="row idea">
                     <div class="col-6 idea-title">
                         <p>{{idea.title}}</p>
                     </div>
                     <div class="col idea-btn">
-                        <button v-if="index != 0" v-on:click="moveIdea('up', 'referencesList', index, idea)" class="btn-up">▲</button>
-                        <button v-if="index != referencesList.length - 1" v-on:click="moveIdea('down', 'referencesList',index, idea)" class="btn-down">▼</button>
+                        <button v-if="index != 0" v-on:click="moveIdea('up', 'referencesList', index, idea)"
+                            class="btn-up">▲</button>
+                        <button v-if="index != referencesList.length - 1"
+                            v-on:click="moveIdea('down', 'referencesList',index, idea)" class="btn-down">▼</button>
                     </div>
                 </div>
             </section>
@@ -124,22 +121,45 @@
             <section>
                 <div class="row title">
                     <h2>Trash</h2>
-                    <a href="">i</a>
+                    <button>i</button>
                 </div>
                 <div v-for="(idea, index) in trashList" class="row idea">
                     <div class="col-6 idea-title">
                         <p>{{idea.title}}</p>
                     </div>
                     <div class="col idea-btn">
-                        <button v-if="index != 0" v-on:click="moveIdea('up', 'trashList', index, idea)" class="btn-up">▲</button>
-                        <button v-if="index != trashList.length - 1" v-on:click="moveIdea('down','trashList',index, idea)" class="btn-down">▼</button>
+                        <button v-if="index != 0" v-on:click="moveIdea('up', 'trashList', index, idea)"
+                            class="btn-up">▲</button>
+                        <button v-if="index != trashList.length - 1"
+                            v-on:click="moveIdea('down','trashList',index, idea)" class="btn-down">▼</button>
                     </div>
                 </div>
             </section>
 
+            <!-- Modal: Change Profile Info 
+            <div id="changeProfileInfoModal" class="modal">
+                <div class="modal-content">
+                    <div class="row modal-header">
+                        <div class="col-6">
+                            <h3>Change profile info</h3>
+                        </div>
+                        <div class="col">
+                            <button id="btnCloseModal">&times;</button>
+                        </div>
+                    </div>
+                    <div class="modal-main">
+                       
+                    </div>
+                    <div class="row modal-footer">
+                        <button>Cancel</button>
+                        <button v-on:click='addIdea'>Save changes</button>
+                    </div>
+                </div>
+            </div>-->
+
             <!-- ADD IDEA BTN -->
             <div class="btn-add">
-                <button id="btnOpenModal">+</button>
+                <button v-on:click="openModal('addIdeaModal')">+</button>
             </div>
 
             <!-- Modal: Add idea -->
@@ -150,14 +170,14 @@
                             <h3>Add a new idea</h3>
                         </div>
                         <div class="col">
-                            <button id="btnCloseModal">&times;</button>
+                            <button v-on:click="closeModal('addIdeaModal')">&times;</button>
                         </div>
                     </div>
                     <div class="modal-main">
                         <!-- TEXT FIELDS -->
                         <div class="input-field">
                             <label for="">Title</label>
-                            <input v-model.trim="title" type="text" >
+                            <input v-model.trim="title" type="text">
                         </div>
 
                         <div class="input-field">
@@ -168,32 +188,41 @@
                         <!-- RADIO BUTTONS FIELDS -->
                         <div class="input-field radio-field">
                             <p>Is it actionable?</p>
-                            <label><input v-model="isActionable" v-bind:value="true" type="radio" name="isActionable" id="isActionable">Yes</label>
-                            <label><input v-model="isActionable" v-bind:value="false" type="radio" name="isActionable" id="isActionable">No</label>
+                            <label><input v-model="isActionable" v-bind:value="true" type="radio" name="isActionable"
+                                    id="isActionable">Yes</label>
+                            <label><input v-model="isActionable" v-bind:value="false" type="radio" name="isActionable"
+                                    id="isActionable">No</label>
                         </div>
 
                         <div class="input-field radio-field" v-if="isActionable === true">
                             <p>Can it be done in two minutes?</p>
-                            <label><input v-model="canBeDoneTwoMin" v-bind:value="true" type="radio" name="canBeDoneTwoMinutes" id="canBeDoneTwoMinutes">Yes</label>
-                            <label><input v-model="canBeDoneTwoMin" v-bind:value="false" type="radio" name="canBeDoneTwoMinutes" id="canBeDoneTwoMinutes">No</label>
+                            <label><input v-model="canBeDoneTwoMin" v-bind:value="true" type="radio"
+                                    name="canBeDoneTwoMinutes" id="canBeDoneTwoMinutes">Yes</label>
+                            <label><input v-model="canBeDoneTwoMin" v-bind:value="false" type="radio"
+                                    name="canBeDoneTwoMinutes" id="canBeDoneTwoMinutes">No</label>
                         </div>
 
                         <div class="input-field radio-field" v-else>
                             <p>Send to:</p>
-                            <label><input v-model="sendNonActionable" value="trash" type="radio" name="sendNonActionable" id="sendNonActionable">Trash</label>
-                            <label><input v-model="sendNonActionable" value="references" type="radio" name="sendNonActionable" id="sendNonActionable">References</label>
-                            <label><input v-model="sendNonActionable" value="someDay" type="radio" name="sendNonActionable" id="sendNonActionable">Some Day</label>
+                            <label><input v-model="sendNonActionable" value="trash" type="radio"
+                                    name="sendNonActionable" id="sendNonActionable">Trash</label>
+                            <label><input v-model="sendNonActionable" value="references" type="radio"
+                                    name="sendNonActionable" id="sendNonActionable">References</label>
+                            <label><input v-model="sendNonActionable" value="someDay" type="radio"
+                                    name="sendNonActionable" id="sendNonActionable">Some Day</label>
                         </div>
 
                         <div class="input-field radio-field" v-if="canBeDoneTwoMin === false && isActionable === true">
                             <p>Send to:</p>
-                            <label><input v-model="sendActionable" value="waiting" type="radio" name="sendActionable" id="sendActionable">Waiting for Someone</label>
-                            <label><input v-model="sendActionable" value="toDo" type="radio" name="sendActionable" id="sendActionable">To do</label>
+                            <label><input v-model="sendActionable" value="waiting" type="radio" name="sendActionable"
+                                    id="sendActionable">Waiting for Someone</label>
+                            <label><input v-model="sendActionable" value="toDo" type="radio" name="sendActionable"
+                                    id="sendActionable">To do</label>
                         </div>
                     </div>
                     <div class="row modal-footer">
-                        <button>Cancelar</button>
-                        <button v-on:click='addIdea'>Agregar</button>
+                        <button v-on:click="closeModal('addIdeaModal')">Cancel</button>
+                        <button v-on:click='addIdea'>Add</button>
                     </div>
                 </div>
             </div>
@@ -203,6 +232,8 @@
     <footer>
         <p>By Yeyskalyn Cordero</p>
         <a href="">GitHub</a>
+        <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+                href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </footer>
     <script src="js/main-app.js"></script>
     <script src="js/modal.js"></script>
