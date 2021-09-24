@@ -159,37 +159,37 @@ var mainApp = new Vue({
             case 'doQuickList':
               this.titles = {
                 title: 'About doing things quickly',
-                description: 'something',
+                description: 'If you can do something in about two minutes or less (as an approx.) simply just do it. And free your mind of those ideas.',
               };
               break;
             case 'doLaterList':
               this.titles = {
                 title: 'About deferring tasks',
-                description: 'something',
+                description: 'If you know you have to do something but you can\'t do it at the time, you can schedule that idea for later.',
               };
               break;
             case 'waitingList':
               this.titles = {
                 title: 'About delegating tasks',
-                description: 'something',
+                description: 'If you want to finish a task but you can\'t continue doing it because you have to wait for someone else to do something, then you have to delegate the task.',
               };
               break;
             case 'someDayList':
               this.titles = {
                 title: 'About incubating ideas',
-                description: 'something',
+                description: 'Here belongs non actionable ideas that may become actions or tasks some day, but you don\'t know when.',
               };
               break;
             case 'referencesList':
               this.titles = {
                 title: 'About saving ideas as references',
-                description: 'something',
+                description: 'Ideas that are not actionable but can be valuable and useful for future tasks or projects.',
               };
               break;
             case 'trashList':
               this.titles = {
                 title: 'About trash ideas',
-                description: 'something',
+                description: 'Worthless ideas that come to your mind, free it of those!!',
               };
               break;
           
