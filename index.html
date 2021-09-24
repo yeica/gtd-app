@@ -20,9 +20,9 @@
                     <h1>Get Your Things Done!</h1>
                 </div>
                 <div class="col account-info">
-                    <span>Hello, {{savedProfile.name}}</span>
+                    <span>Hello, {{profile.name}}</span>
                     <button v-on:click="openModal('updateProfileInfoModal')">
-                        <img v-bind:src="'assets/avatars/' + savedProfile.avatar + '.svg'">
+                        <img v-bind:src="'assets/avatars/' + profile.avatar + '.svg'">
                     </button>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Modal: Update Profile Info -->
                 <div id="updateProfileInfoModal" class="modal">
                     <div class="modal-content">
@@ -173,12 +173,12 @@
                                 <!-- TEXT FIELD -->
                                 <div class="input-field">
                                     <label>Name</label>
-                                    <input v-model.trim="profile.name" type="text">
+                                    <input v-model.trim="name" type="text">
                                 </div>
                                 <!-- COLOR FIELD -->
                                 <div class="input-field">
                                     <label>Color</label>
-                                    <input v-model.trim="profile.color" type="color">
+                                    <input v-model.trim="color" type="color">
                                 </div>
                             </div>
 
@@ -189,13 +189,16 @@
                                     <span>Avatars</span>
                                 </summary>
                                 <div class="row">
-                                    <div class="col-2" v-for='index in 40'>
-                                        <div v-on:click="setAvatar(index)" class="profile-avatars">
+                                    <div v-for='index in 40'>
+                                        <div v-on:click="setAvatar(index)" :class="{ 'selected' : avatar === '(' + index + ')' }" class="profile-avatars">
                                             <img v-bind:src="'assets/avatars/(' + index + ').svg'">
                                         </div>
                                     </div>
                                 </div>
                             </details>
+
+                            <!-- ERRROR MESSAGE -->
+                            <span class="error">{{errorMessage}}</span>
                         </div>
                         <div class="row modal-footer">
                             <button v-on:click="closeModal('updateProfileInfoModal')">Cancel</button>
@@ -267,6 +270,10 @@
                                 <label><input v-model="sendActionable" value="toDo" type="radio" name="sendActionable"
                                         id="sendActionable">To do</label>
                             </div>
+
+                            <!-- ERRROR MESSAGE -->
+                            <span class="error">{{errorMessage}}</span>
+
                         </div>
                         <div class="row modal-footer">
                             <button v-on:click="closeModal('addIdeaModal')">Cancel</button>

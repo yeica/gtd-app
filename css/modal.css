@@ -103,9 +103,24 @@
     cursor: pointer;
   }
 
+  .profile-avatars {
+    padding: 10px;
+  }
+
   .profile-avatars img {
     width: 60px;
     height: 60px;
     cursor: pointer;
-    margin-bottom: 5px;
+  }
+
+  .error {
+    display: block;
+    margin: 1rem 0;
+    color: red;
+    font-weight: bold;
+  }
+
+  .selected {
+    background-color: rgb(209, 209, 209);
+    border-radius: 10px;
   }

@@ -1,6 +1,10 @@
 var mainApp = new Vue({
     el: '#mainApp',
     data: {
+      name: '',
+      avatar: '',
+      isAvatarSelected: false,
+      color: '',
       title: '',
       description: '',
       isActionable: true,
@@ -11,82 +15,67 @@ var mainApp = new Vue({
         title: '',
         description: ''
       },
-      savedProfile: {
+      profile: {
         name: 'Anonymous',
         avatar: '(1)',
-        color: '#ffffff'
+        color: '#BFA2DB'
       },
-      profile: {
-        name: '',
-        avatar: '',
-        color: '#ffffff'
-      },
-      doQuickList: [
-        /*{
-          title: 'Comer mucho pan',
-          description: 'porque tengo hambre'
-        },
-        {
-          title: 'Comer mucha yaroa',
-          description: 'porque tengo hambre'
-        },
-        {
-          title: 'Comer mucha berenjena',
-          description: 'porque tengo hambre'
-        }*/
-      ],
+      doQuickList: [],
       doLaterList: [],
       waitingList: [],
       someDayList: [],
       referencesList: [],
       trashList: [],
+      errorMessage: ''
     },
     methods: {
       addIdea: function () {
-
-        let idea = {
-          title: this.title,
-          description: this.description
-        }
-
-        if (this.isActionable == true) {
-          if (this.canBeDoneTwoMin == true){
-            this.doQuickList.push(idea);
-            localStorage.setItem('doQuickList', JSON.stringify(this.doQuickList));
+        if(this.validate('addIdeaModal')){
+          let idea = {
+            title: this.title,
+            description: this.description
           }
-          else{
-            if (this.sendActionable == 'toDo') {
-              this.doLaterList.push(idea);
-              localStorage.setItem('doLaterList', JSON.stringify(this.doLaterList));
+
+          if (this.isActionable == true) {
+            if (this.canBeDoneTwoMin == true){
+              this.doQuickList.push(idea);
+              localStorage.setItem('doQuickList', JSON.stringify(this.doQuickList));
             }
             else{
-              this.waitingList.push(idea);
-              localStorage.setItem('waitingList', JSON.stringify(this.waitingList));
-            } 
+              if (this.sendActionable == 'toDo') {
+                this.doLaterList.push(idea);
+                localStorage.setItem('doLaterList', JSON.stringify(this.doLaterList));
+              }
+              else{
+                this.waitingList.push(idea);
+                localStorage.setItem('waitingList', JSON.stringify(this.waitingList));
+              } 
+            }
           }
-        }
-        else {
-          switch (this.sendNonActionable) {
-            case 'someDay':
-              this.someDayList.push(idea);
-              localStorage.setItem('someDayList', JSON.stringify(this.someDayList));
-              break;
+          else {
+            switch (this.sendNonActionable) {
+              case 'someDay':
+                this.someDayList.push(idea);
+                localStorage.setItem('someDayList', JSON.stringify(this.someDayList));
+                break;
 
-            case 'references':
-              this.referencesList.push(idea);
-              localStorage.setItem('referencesList', JSON.stringify(this.referencesList));
-              break;
+              case 'references':
+                this.referencesList.push(idea);
+                localStorage.setItem('referencesList', JSON.stringify(this.referencesList));
+                break;
 
-            case 'trash':
-              this.trashList.push(idea);
-              localStorage.setItem('trashList', JSON.stringify(this.trashList));
-              break;
-          
-            default:
-              break;
+              case 'trash':
+                this.trashList.push(idea);
+                localStorage.setItem('trashList', JSON.stringify(this.trashList));
+                break;
+            
+              default:
+                break;
+            }
           }
+          this.closeModal('addIdeaModal');
+
         }
-        this.closeModal('addIdeaModal');
       },
       moveIdea: function (whereToMove, arrayToUpdate, actualIndex, idea) {
         switch (arrayToUpdate) {
@@ -207,6 +196,9 @@ var mainApp = new Vue({
               break;
           }
         }
+        else if (modalName == 'updateProfileInfoModal'){
+          this.restartValues();
+        }
         
         targetModal.style.display = "block";
   
@@ -214,18 +206,23 @@ var mainApp = new Vue({
       closeModal: function (modalName) {
         let targetModal = document.getElementById(modalName);
         targetModal.style.display = "none";
+        this.errorMessage = '';
+        this.restartValues();
       },
       setAvatar: function (index){
-        this.profile.avatar= '(' + index +')'
+        this.avatar= '(' + index +')'
       },
       updateProfile: function () {
-        this.savedProfile = this.profile;
-        this.changePrimaryColor();
-        localStorage.setItem('profile', JSON.stringify(this.savedProfile));
-        this.closeModal('updateProfileInfoModal');
-      },
-      updateLocalStorage: function (){
-        console.log(this.localStorageData)
+        if (this.validate('updateProfileInfoModal')){
+          this.profile = {
+            name: this.name,
+            avatar: this.avatar,
+            color: this.color
+          };
+          this.changePrimaryColor();
+          localStorage.setItem('profile', JSON.stringify(this.profile));
+          this.closeModal('updateProfileInfoModal');
+        }
       },
       getLocalStorage: function () {
         let doQuick = JSON.parse(localStorage.getItem('doQuickList'));
@@ -244,18 +241,46 @@ var mainApp = new Vue({
         trash == null ? this.trashList = [] : this.trashList = trash;
 
         if (profile == null){
-          this.createProfile()
+          this.createProfile();
         }
         else{
-          this.savedProfile = profile;
+          this.profile = profile;
           this.changePrimaryColor();
         }
       },
       createProfile: function () {
-        localStorage.setItem('profile', JSON.stringify(this.savedProfile));
+        localStorage.setItem('profile', JSON.stringify(this.profile));
       },
       changePrimaryColor: function () {
-        document.documentElement.style.setProperty('--primary-color', this.savedProfile.color);
+        document.documentElement.style.setProperty('--primary-color', this.profile.color);
+      },
+      validate: function (modalToValidate) {
+        if (modalToValidate === 'addIdeaModal'){
+          if (this.title === null || this.title === ''){
+            this.errorMessage = 'Title is mandatory.';
+            return false;
+          }
+          else {
+            this.errorMessage = '';
+            return true;
+          }
+        }
+        else if (modalToValidate === 'updateProfileInfoModal'){
+          if (this.name == null || this.name == '') {
+            this.errorMessage = 'Name is mandatory.';
+            this.restartValues();
+            return false;
+          }
+          else {
+            this.errorMessage = '';
+            return true;
+          }
+        }
+      },
+      restartValues: function () {
+        this.name = this.profile.name;
+        this.avatar = this.profile.avatar;
+        this.color = this.profile.color;
       }
     },
     created: function () {
