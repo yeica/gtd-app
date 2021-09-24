@@ -39,16 +39,16 @@ var mainApp = new Vue({
           if (this.isActionable == true) {
             if (this.canBeDoneTwoMin == true){
               this.doQuickList.push(idea);
-              localStorage.setItem('doQuickList', JSON.stringify(this.doQuickList));
+              this.updateLocalStorage('doQuickList');
             }
             else{
               if (this.sendActionable == 'toDo') {
                 this.doLaterList.push(idea);
-                localStorage.setItem('doLaterList', JSON.stringify(this.doLaterList));
+                this.updateLocalStorage('doLaterList');
               }
               else{
                 this.waitingList.push(idea);
-                localStorage.setItem('waitingList', JSON.stringify(this.waitingList));
+                this.updateLocalStorage('waitingList');
               } 
             }
           }
@@ -56,25 +56,25 @@ var mainApp = new Vue({
             switch (this.sendNonActionable) {
               case 'someDay':
                 this.someDayList.push(idea);
-                localStorage.setItem('someDayList', JSON.stringify(this.someDayList));
+                this.updateLocalStorage('someDayList');
                 break;
 
               case 'references':
                 this.referencesList.push(idea);
-                localStorage.setItem('referencesList', JSON.stringify(this.referencesList));
+                this.updateLocalStorage('referencesList');
                 break;
 
               case 'trash':
                 this.trashList.push(idea);
-                localStorage.setItem('trashList', JSON.stringify(this.trashList));
+                this.updateLocalStorage('trashList');
                 break;
             
               default:
                 break;
             }
           }
+          
           this.closeModal('addIdeaModal');
-
         }
       },
       moveIdea: function (whereToMove, arrayToUpdate, actualIndex, idea) {
@@ -148,6 +148,7 @@ var mainApp = new Vue({
           default:
             break;
         }
+        this.updateLocalStorage(arrayToUpdate);
 
       },
       openModal: function (modalName, list) {
@@ -220,7 +221,7 @@ var mainApp = new Vue({
             color: this.color
           };
           this.changePrimaryColor();
-          localStorage.setItem('profile', JSON.stringify(this.profile));
+          this.updateLocalStorage('profile');
           this.closeModal('updateProfileInfoModal');
         }
       },
@@ -248,8 +249,42 @@ var mainApp = new Vue({
           this.changePrimaryColor();
         }
       },
+      updateLocalStorage: function (arrayToUpdate){
+        switch (arrayToUpdate) {
+          case 'profile':
+            localStorage.setItem(arrayToUpdate, JSON.stringify(this.profile));
+            break;
+
+          case 'doQuickList':
+            localStorage.setItem(arrayToUpdate, JSON.stringify(this.doQuickList));
+            break;
+
+          case 'doLaterList':
+            localStorage.setItem(arrayToUpdate, JSON.stringify(this.doLaterList));
+            break;
+
+          case 'waitingList':
+            localStorage.setItem(arrayToUpdate, JSON.stringify(this.waitingList));
+            break;
+
+          case 'someDayList':
+            localStorage.setItem(arrayToUpdate, JSON.stringify(this.someDayList));
+            break;
+
+          case 'referencesList':
+            localStorage.setItem(arrayToUpdate, JSON.stringify(this.referencesList));
+            break;
+
+          case 'trashList':
+            localStorage.setItem(arrayToUpdate, JSON.stringify(this.trashList));
+            break;
+        
+          default:
+            break;
+        }
+      },
       createProfile: function () {
-        localStorage.setItem('profile', JSON.stringify(this.profile));
+        this.updateLocalStorage('profile');
       },
       changePrimaryColor: function () {
         document.documentElement.style.setProperty('--primary-color', this.profile.color);
