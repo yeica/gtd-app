@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,102 +8,306 @@
     <title>Get Your Things Done!</title>
     <link rel="stylesheet" href="css/flexbox.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
+
 <body>
-    <header>
-        <div class="row header-container">
-            <div class="col-5 title">
-                <h1>Get Your Things Done!</h1>
+    <div id="mainApp">
+        <header>
+            <div class="row header-container">
+                <div class="col-5 title">
+                    <h1>Get Your Things Done!</h1>
+                </div>
+                <div class="col account-info">
+                    <span>Hello, {{profile.name}}</span>
+                    <button v-on:click="openModal('updateProfileInfoModal')">
+                        <img v-bind:src="'assets/avatars/' + profile.avatar + '.svg'">
+                    </button>
+                </div>
             </div>
-            <div class="col account-info">
-                <span>Yeyskalyn Cordero Herrera</span>
-                <a href=""></a>
-            </div>
-        </div>
-    </header>
-    <main>
-        <div class="main-container">
-            <section>
-                <div class="row title">
-                    <h2>Ideas</h2>
-                    <a href="">i</a>
-                </div>
-                <div class="row idea">
-                    <div class="col-6 idea-title">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet consectetur sunt corporis natus provident nesciunt in nulla alias facilis repellat!</p>
+        </header>
+        <main>
+            <div class="main-container">
+                <section>
+                    <div class="row title">
+                        <h2>Do it ASAP!</h2>
+                        <button v-on:click="openModal('gtdInfoModal', 'doQuickList')">i</button>
                     </div>
-                    <div class="col idea-btn">
-                        <button class="btn-down">▼</button>
+                    <div v-for="(idea, index) in doQuickList" class="row idea">
+                        <div v-on:click="openModal('aboutIdeaModal', 'doQuickList', index)" class="col-5 idea-title">
+                            <p>{{idea.title}}</p>
+                        </div>
+                        <div class="col idea-btn">
+                            <button v-if="index != 0" v-on:click="moveIdea('up', 'doQuickList',index, idea)" class="btn-up">▲</button>
+                            <button v-if="index != doQuickList.length - 1" v-on:click="moveIdea('down', 'doQuickList', index, idea)" class="btn-down">▼</button>
+                            <button v-on:click="deleteIdea('doQuickList', index)" class="btn-delete">D</button>
+                        </div>
                     </div>
-                </div>
-                <div class="row idea">
-                    <div class="col-6 idea-title">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet consectetur sunt corporis natus provident nesciunt in nulla alias facilis repellat!</p>
+                </section>
+
+                <section>
+                    <div class="row title">
+                        <h2>To do later</h2>
+                        <button v-on:click="openModal('gtdInfoModal', 'doLaterList')">i</button>
                     </div>
-                    <div class="col idea-btn">
-                        <button class="btn-up">▲</button>
-                        <button class="btn-down">▼</button>
+                    <div v-for="(idea, index) in doLaterList" class="row idea">
+                        <div v-on:click="openModal('aboutIdeaModal', 'doLaterList', index)" class="col-6 idea-title">
+                            <p>{{idea.title}}</p>
+                        </div>
+                        <div class="col idea-btn">
+                            <button v-if="index != 0" v-on:click="moveIdea('up','doLaterList', index, idea)" class="btn-up">▲</button>
+                            <button v-if="index != doLaterList.length - 1" v-on:click="moveIdea('down','doLaterList',index, idea)" class="btn-down">▼</button>
+                            <button v-on:click="deleteIdea('doLaterList', index)" class="btn-delete">D</button>
+                        </div>
                     </div>
-                </div>
-                <div class="row idea">
-                    <div class="col-6 idea-title">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet consectetur sunt corporis natus provident nesciunt in nulla alias facilis repellat!</p>
+                </section>
+
+                <section>
+                    <div class="row title">
+                        <h2>Waiting for someone</h2>
+                        <button v-on:click="openModal('gtdInfoModal', 'waitingList')">i</button>
                     </div>
-                    <div class="col idea-btn">
-                        <button class="btn-up">▲</button>
+                    <div v-for="(idea, index) in waitingList" class="row idea">
+                        <div v-on:click="openModal('aboutIdeaModal', 'waitingList', index)" class="col-6 idea-title">
+                            <p>{{idea.title}}</p>
+                        </div>
+                        <div class="col idea-btn">
+                            <button v-if="index != 0" v-on:click="moveIdea('up', 'waitingList',index, idea)" class="btn-up">▲</button>
+                            <button v-if="index != waitingList.length - 1" v-on:click="moveIdea('down','waitingList',index, idea)" class="btn-down">▼</button>
+                            <button v-on:click="deleteIdea('waitingList', index)" class="btn-delete">D</button>
+                        </div>
                     </div>
-                </div>
-            </section>
-            
-            <section>
-                <div class="row title">
-                    <h2>Do it ASAP!</h2>
-                    <a href="">i</a>
-                </div>
-            </section>
-            
-            <section>
-                <div class="row title">
-                    <h2>To do later</h2>
-                    <a href="">i</a>
-                </div>
-            </section>
-            
-            <section>
-                <div class="row title">
-                    <h2>Waiting for</h2>
-                <a href="">i</a>
-                </div>
-            </section>
-        
-            <section>
-                <div class="row title">
-                    <h2>Some day</h2>
-                    <a href="">i</a>
-                </div>
-            </section>
-        
-            <section>
-                <div class="row title">
-                    <h2>References</h2>
-                    <a href="">i</a>
-                </div>
-            </section>
-        
-            <section>
-                <div class="row title">
-                    <h2>Trash</h2>
-                    <a href="">i</a>
-                </div>
-            </section>
+                </section>
+
+                <section>
+                    <div class="row title">
+                        <h2>To do some day</h2>
+                        <button v-on:click="openModal('gtdInfoModal', 'someDayList')">i</button>
+                    </div>
+                    <div v-for="(idea, index) in someDayList" class="row idea">
+                        <div v-on:click="openModal('aboutIdeaModal', 'someDayList', index)" class="col-6 idea-title">
+                            <p>{{idea.title}}</p>
+                        </div>
+                        <div class="col idea-btn">
+                            <button v-if="index != 0" v-on:click="moveIdea('up', 'someDayList',index, idea)" class="btn-up">▲</button>
+                            <button v-if="index != someDayList.length - 1" v-on:click="moveIdea('down', 'someDayList', index, idea)" class="btn-down">▼</button>
+                            <button v-on:click="deleteIdea('someDayList', index)" class="btn-delete">D</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="row title">
+                        <h2>References</h2>
+                        <button v-on:click="openModal('gtdInfoModal', 'referencesList')">i</button>
+                    </div>
+                    <div v-for="(idea, index) in referencesList" class="row idea">
+                        <div v-on:click="openModal('aboutIdeaModal', 'referencesList', index)" class="col-6 idea-title">
+                            <p>{{idea.title}}</p>
+                        </div>
+                        <div class="col idea-btn">
+                            <button v-if="index != 0" v-on:click="moveIdea('up', 'referencesList', index, idea)" class="btn-up">▲</button>
+                            <button v-if="index != referencesList.length - 1" v-on:click="moveIdea('down', 'referencesList',index, idea)" class="btn-down">▼</button>
+                            <button v-on:click="deleteIdea('referencesList', index)" class="btn-delete">D</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="row title">
+                        <h2>Trash</h2>
+                        <button v-on:click="openModal('gtdInfoModal', 'trashList')">i</button>
+                    </div>
+                    <div v-for="(idea, index) in trashList" class="row idea">
+                        <div v-on:click="openModal('aboutIdeaModal', 'trashList', index)" class="col-6 idea-title">
+                            <p>{{idea.title}}</p>
+                        </div>
+                        <div class="col idea-btn">
+                            <button v-if="index != 0" v-on:click="moveIdea('up', 'trashList', index, idea)" class="btn-up">▲</button>
+                            <button v-if="index != trashList.length - 1" v-on:click="moveIdea('down','trashList',index, idea)" class="btn-down">▼</button>
+                            <button v-on:click="deleteIdea('trashList', index)" class="btn-delete">D</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ADD IDEA BTN -->
                 <div class="btn-add">
-                    <button>+</button>
+                    <button v-on:click="openModal('addIdeaModal')">+</button>
                 </div>
-        </div>
-    </main>
-    <footer>
-        <p>By Yeyskalyn Cordero</p>
-        <a href="">GitHub</a>
-    </footer>
+
+                <!-- Modal: Info About GTD Method -->
+                <div id="gtdInfoModal" class="modal">
+                    <div class="modal-content">
+                        <div class="row modal-header">
+                            <div class="col-6">
+                                <h3>{{titles.title}}</h3>
+                            </div>
+                            <div class="col">
+                                <button v-on:click="closeModal('gtdInfoModal')">&times;</button>
+                            </div>
+                        </div>
+                        <div class="modal-main">
+                            <p>{{titles.description}}</p>
+                        </div>
+                        <div class="row modal-footer">
+                            <button v-on:click="closeModal('gtdInfoModal')">Ok</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal: Info About Selected Idea -->
+                <div id="aboutIdeaModal" class="modal">
+                    <div class="modal-content">
+                        <div class="row modal-header">
+                            <div class="col-6">
+                                <h3>{{idea.title}}</h3>
+                            </div>
+                            <div class="col">
+                                <button v-on:click="closeModal('aboutIdeaModal')">&times;</button>
+                            </div>
+                        </div>
+                        <div class="modal-main">
+                            <p>{{idea.description}}</p>
+                        </div>
+                        <div class="row modal-footer">
+                            <button v-on:click="closeModal('aboutIdeaModal')">Ok</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal: Update Profile Info -->
+                <div id="updateProfileInfoModal" class="modal">
+                    <div class="modal-content">
+                        <div class="row modal-header">
+                            <div class="col-6">
+                                <h3>Change profile info</h3>
+                            </div>
+                            <div class="col">
+                                <button v-on:click="closeModal('updateProfileInfoModal')">&times;</button>
+                            </div>
+                        </div>
+                        <div class="modal-main">
+                            <div class="row">
+                                <!-- TEXT FIELD -->
+                                <div class="input-field">
+                                    <label>Name</label>
+                                    <input v-model.trim="name" type="text">
+                                </div>
+                                <!-- COLOR FIELD -->
+                                <div class="input-field">
+                                    <label>Color</label>
+                                    <input v-model.trim="color" type="color">
+                                </div>
+                            </div>
+
+                            <!-- AVATARS -->
+
+                            <details>
+                                <summary>
+                                    <span>Avatars</span>
+                                </summary>
+                                <div class="row">
+                                    <div v-for='index in 40'>
+                                        <div v-on:click="setAvatar(index)" :class="{ 'selected' : avatar === '(' + index + ')' }" class="profile-avatars">
+                                            <img v-bind:src="'assets/avatars/(' + index + ').svg'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <!-- ERRROR MESSAGE -->
+                            <span class="error">{{errorMessage}}</span>
+                        </div>
+                        <div class="row modal-footer">
+                            <button v-on:click="closeModal('updateProfileInfoModal')">Cancel</button>
+                            <button v-on:click='updateProfile()'>Save changes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal: Add idea -->
+                <div id="addIdeaModal" class="modal">
+                    <div class="modal-content">
+                        <div class="row modal-header">
+                            <div class="col-6">
+                                <h3>Add a new idea</h3>
+                            </div>
+                            <div class="col">
+                                <button v-on:click="closeModal('addIdeaModal')">&times;</button>
+                            </div>
+                        </div>
+                        <div class="modal-main">
+                            <!-- TEXT FIELDS -->
+                            <div class="input-field">
+                                <label>Title</label>
+                                <input v-model.trim="title" type="text">
+                            </div>
+
+                            <div class="input-field">
+                                <label>Description</label>
+                                <textarea v-model.trim="description" name="" cols="50" rows="5"></textarea>
+                            </div>
+
+                            <!-- RADIO BUTTONS FIELDS -->
+                            <div class="input-field radio-field">
+                                <p>Is it actionable?</p>
+                                <label><input v-model="isActionable" v-bind:value="true" type="radio"
+                                        name="isActionable" id="isActionable">Yes</label>
+                                <label><input v-model="isActionable" v-bind:value="false" type="radio"
+                                        name="isActionable" id="isActionable">No</label>
+                            </div>
+
+                            <div class="input-field radio-field" v-if="isActionable === true">
+                                <p>Can it be done in two minutes or less?</p>
+                                <label><input v-model="canBeDoneTwoMin" v-bind:value="true" type="radio"
+                                        name="canBeDoneTwoMinutes" id="canBeDoneTwoMinutes">Yes</label>
+                                <label><input v-model="canBeDoneTwoMin" v-bind:value="false" type="radio"
+                                        name="canBeDoneTwoMinutes" id="canBeDoneTwoMinutes">No</label>
+                            </div>
+
+                            <div class="input-field radio-field" v-else>
+                                <p>Send to:</p>
+                                <label><input v-model="sendNonActionable" value="trash" type="radio"
+                                        name="sendNonActionable" id="sendNonActionable">Trash</label>
+                                <label><input v-model="sendNonActionable" value="references" type="radio"
+                                        name="sendNonActionable" id="sendNonActionable">References</label>
+                                <label><input v-model="sendNonActionable" value="someDay" type="radio"
+                                        name="sendNonActionable" id="sendNonActionable">Some Day</label>
+                            </div>
+
+                            <div class="input-field radio-field"
+                                v-if="canBeDoneTwoMin === false && isActionable === true">
+                                <p>Send to:</p>
+                                <label><input v-model="sendActionable" value="waiting" type="radio"
+                                        name="sendActionable" id="sendActionable">Waiting for Someone</label>
+                                <label><input v-model="sendActionable" value="toDo" type="radio" name="sendActionable"
+                                        id="sendActionable">To do</label>
+                            </div>
+
+                            <!-- ERRROR MESSAGE -->
+                            <span class="error">{{errorMessage}}</span>
+
+                        </div>
+                        <div class="row modal-footer">
+                            <button v-on:click="closeModal('addIdeaModal')">Cancel</button>
+                            <button v-on:click='addIdea'>Add</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <footer>
+            <p>By Yeyskalyn Cordero</p>
+            <a href="https://github.com/yeica/gtd-app" target="_blank">GitHub</a> |
+            <a href="https://www.macadamian.com/wp-content/uploads/2017/06/workflow-for-getting-things-dzone-1-728.jpg" target="_blank">GTD Info</a>
+            <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+                    href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+        </footer>
+    </div>
+    <script src="js/main-app.js"></script>
+    <script src="js/modal.js"></script>
 </body>
+
 </html>

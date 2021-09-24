@@ -4,6 +4,7 @@
     --primary-color: #BFA2DB;
     --accent-color: #7F7C82;
     --idea-bg: #F3F1F5;
+    --idea-bg-hover: #d8d8d8;
 }
 
 * {
@@ -44,13 +45,18 @@ header {
     display: none;
 }
 
-.account-info a {
+.account-info button {
+    background-color: unset;
+    border: unset;
+}
+
+.account-info button img {
     display: inline-block;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: var(--accent-color);
 }
+
 
 /* MAIN  */
 
@@ -67,17 +73,17 @@ section .title {
     margin-bottom: .5rem;
 }
 
-section .title a {
+section .title button {
     margin: 0 4px;
     padding: 2px;
     background-color: var(--primary-color);
+    border: none;
     color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
+    /*text-align: center;*/
+    font-size: 14px;
     font-weight: bold;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     align-self: center;
 }
@@ -95,22 +101,35 @@ section .title h2 {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
+.idea:hover {
+    cursor: pointer;
+    background-color: var(--idea-bg-hover);
+}
+
 .idea-btn {
     align-self: center;
     text-align: center;
 }
 
+.idea-btn button {
+    font-size: 15px;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+}
+
 .idea-btn .btn-up,
 .idea-btn .btn-down {
-    cursor: pointer;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    font-size: 15px;
     background-color: var(--accent-color);
-    border: 1px solid var(--accent-color);
-    color: white;
-    margin: 5px;
+    border: none;
+}
+
+.btn-delete {
+    background-color: tomato;
+    border: none;
+    font-weight: bold;
 }
 
 .btn-add {
@@ -128,13 +147,17 @@ section .title h2 {
     cursor: pointer;
 }
 
+button {
+    cursor: pointer;
+}
+
 /* FOOTER */
 
 footer {
     font-size: 1rem;
     color: black;
     text-align: center;
-    margin-top: 5rem;
+    margin: 2.5rem 0;
 }
 
 /*  MEDIA QUERIES  */
