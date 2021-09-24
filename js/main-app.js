@@ -7,6 +7,10 @@ var mainApp = new Vue({
       color: '',
       title: '',
       description: '',
+      idea: {
+        title: '',
+        description: ''
+      },
       isActionable: true,
       canBeDoneTwoMin: true,
       sendActionable: '',
@@ -151,7 +155,38 @@ var mainApp = new Vue({
         this.updateLocalStorage(arrayToUpdate);
 
       },
-      openModal: function (modalName, list) {
+      deleteIdea: function (list, itemIndex) {
+        switch (list) {
+          case 'doQuickList':
+            this.doQuickList.splice(itemIndex, 1);
+            this.updateLocalStorage('doQuickList');
+            break;
+          case 'doLaterList':
+            this.doLaterList.splice(itemIndex, 1);
+            this.updateLocalStorage('doLaterList');
+            break;
+          case 'waitingList':
+            this.waitingList.splice(itemIndex, 1);
+            this.updateLocalStorage('waitingList');
+            break;
+          case 'someDayList':
+            this.someDayList.splice(itemIndex, 1);
+            this.updateLocalStorage('someDayList');
+            break;
+          case 'referencesList':
+            this.referencesList.splice(itemIndex, 1);
+            this.updateLocalStorage('referencesList');
+            break;
+          case 'trashList':
+            this.trashList.splice(itemIndex, 1);
+            this.updateLocalStorage('trashList');
+            break;
+        
+          default:
+            break;
+        }
+      },
+      openModal: function (modalName, list, itemIndex) {
         let targetModal = document.getElementById(modalName);
 
         if (modalName == 'gtdInfoModal') {
@@ -199,6 +234,49 @@ var mainApp = new Vue({
         }
         else if (modalName == 'updateProfileInfoModal'){
           this.restartValues();
+        }
+        else if (modalName == 'aboutIdeaModal'){
+          switch (list) {
+            case 'doQuickList':
+              this.idea = {
+                title: this.doQuickList[itemIndex].title,
+                description: this.doQuickList[itemIndex].description,
+              };
+              break;
+            case 'doLaterList':
+              this.idea = {
+                title: this.doLaterList[itemIndex].title,
+                description: this.doLaterList[itemIndex].description,
+              };
+              break;
+            case 'waitingList':
+              this.idea = {
+                title: this.waitingList[itemIndex].title,
+                description: this.waitingList[itemIndex].description,
+              };
+              break;
+            case 'someDayList':
+              this.idea = {
+                title: this.someDayList[itemIndex].title,
+                description: this.someDayList[itemIndex].description,
+              };
+              break;
+            case 'referencesList':
+              this.idea = {
+                title: this.referencesList[itemIndex].title,
+                description: this.referencesList[itemIndex].description,
+              };
+              break;
+            case 'trashList':
+              this.idea = {
+                title: this.trashList[itemIndex].title,
+                description: this.trashList[itemIndex].description,
+              };
+              break;
+          
+            default:
+              break;
+          }
         }
         
         targetModal.style.display = "block";
